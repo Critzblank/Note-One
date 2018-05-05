@@ -16,12 +16,13 @@ class ToDo extends Component {
 
     static navigationOptions = () => {
         return {
-            headerTitle: "New Task",
-            headerRight: (
-                <Text>
-                    Done
-                </Text>
-            )
+            headerStyle: {
+                backgroundColor: "rgb(30,30,35)",
+            },
+            headerTintColor: 'white',
+            headerTitle: <Text
+                style={{marginLeft: 110, color: 'white', fontSize: 20}}
+            >New Task</Text>
         }
     }
 
@@ -49,7 +50,7 @@ class ToDo extends Component {
 
         console.log("PROPERTIES", edit, text, id);
         return(
-            <View>
+            <View style={{backgroundColor: '#333333', height: '100%'}}>
 
                     <TextInput
                         style = {styles.inputStyle}
@@ -61,7 +62,9 @@ class ToDo extends Component {
                     />
 
                     <Button
+                        color={'#e6394d'}
                         title="Done"
+                        width={50}
                         onPress = {() => {
                             console.log("ONPRESS", this.state.edit, this.state.text, this.state.id)
                             this.EditCheck(this.state.edit, this.state.Task, this.state.id);
@@ -76,7 +79,7 @@ class ToDo extends Component {
 
 const styles = {
     inputStyle:{
-        height: 50
+        height: 75
     }
 }
 

@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import { View, Text, CheckBox } from "react-native";
+import { View, Text, CheckBox, Image, TouchableOpacity } from "react-native";
 import {connect} from "react-redux";
 import Icon from "react-native-vector-icons/FontAwesome";
 import {removeTask} from "../actions";
+import logo from "../images/logo.png"
 
 class Index extends Component {
 
@@ -16,27 +17,20 @@ class Index extends Component {
 
     static navigationOptions = ({navigation}) => {
         return {
-            headerTitle: "NoteOne",
-            headerStyle: {
-                backgroundColor: "rgb(30,30,35)"
-            },
-            headerRight: (
-                <Text
-                    onPress = { () => {
-                        navigation.navigate("ToDo", {
-                            text: "",
-                            edit: false,
-                            id: null
-                        });
-                    }
-                    }
+            headerTitle: (
+                <Image style={{
+                    width: 25,
+                    height: 25,
+                    marginLeft: 190
 
-                >
-                    Add
-                </Text>
-            )
-        }
-    }
+                }} source={require('../images/logo.png')}/>
+            ),
+            headerStyle: {
+                backgroundColor: "rgb(30,30,35)",
+            }
+
+
+    }}
 
 
     taskList(){
@@ -64,9 +58,10 @@ class Index extends Component {
                     <View>
 
                     <Icon
+                        style={styles.trash}
                         name="trash"
                         size={25}
-                        color="#"
+                        color="white"
                         onPress={() => {
 
                             this.props.removeTask(task.id)
@@ -74,11 +69,7 @@ class Index extends Component {
                     />
 
                     </View>
-                    <CheckBox style={styles.CheckBoxStyle}
 
-                              value={this.state.checked}
-                              onChange={() => this.setState({checked: !this.state.checked})}
-                    />
                 </View>
             )
         })
@@ -89,10 +80,26 @@ class Index extends Component {
 
         console.log("STATE",this.props)
         return(
-            <View>
+            <View style={{backgroundColor: '#333333', height: '100%'}}>
+            <View style={{marginTop: 2}}>
                 {this.taskList()}
             </View>
+                <TouchableOpacity style={styles.addButton}
+                                  onPress = { () => {
+                    this.props.navigation.navigate("ToDo", {
+                        text: "",
+                        edit: false,
+                        id: null
+                    });
+                }
+                }>
+                    <Text
+
+                        style={styles.addButtonText}>+</Text>
+                </TouchableOpacity>
+            </View>
         )
+
     }
 }
 
@@ -103,22 +110,51 @@ function mapStateToProps(state){
 }
 
 const styles = {
-
+    addButton: {
+        position: 'absolute',
+        zIndex: 11,
+        right: 20,
+        top: 500,
+        backgroundColor: '#e6394d',
+        width: 70,
+        height: 70,
+        borderRadius: 35,
+        alignItems: 'center',
+        justifyContent: 'center',
+        elevation: 8
+    },
+    addButtonText: {
+        color: '#fff',
+        fontSize: 24
+    },
     TaskStyle: {
-        borderColor: '#000',
+        backgroundColor: 'rgb(30,30,35)',
+        borderColor: 'rgb(30,30,35)',
+        borderRadius: 3,
         borderWidth: 0.2,
+        margin: 2,
         flexDirection: "row",
         justifyContent: "space-between",
         height: 80,
-        alignItems: "center"
+        alignItems: "center",
+        elevation: 8
+    },
+    addText: {
+        color: 'white',
+        margin: 10
     },
     TaskText: {
+        color: 'white',
         fontSize: 20,
+        marginLeft: 15,
 
     },
     CheckBoxStyle: {
-    }
-
+        margin: 5
+    },
+    trash:{
+        marginRight: 15
+    },
 }
 
 export default connect(mapStateToProps, {removeTask})(Index);
