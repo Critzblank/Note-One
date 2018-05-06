@@ -136,7 +136,6 @@ const styles = {
         marginLeft: 5,
         flexDirection: "row",
         justifyContent: "space-between",
-        height: 80,
         alignItems: "center",
         elevation: 8
     },
@@ -148,6 +147,8 @@ const styles = {
         color: 'white',
         fontSize: 20,
         marginLeft: 15,
+        margin: 10,
+        width: '80%'
 
     },
     CheckBoxStyle: {
@@ -155,6 +156,7 @@ const styles = {
     },
     trash:{
         marginRight: 15
+
     },
 }
 

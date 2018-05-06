@@ -1,31 +1,33 @@
 import {ADD_TASK, REMOVE_TASK, EDIT_TASK} from "../actions/types";
+import {REHYDRATE} from "redux-persist/constants";
 import _ from "lodash";
 
 export default function (state = [], action){
     switch(action.type){
-
+            case REHYDRATE:
+                return action.payload.tasks || [];
             case ADD_TASK:
-            const task = _.merge({taskText: action.payload}, {id: state.length}, {edit: false});
-            console.log("TASK2", task);
-            const newState = [...state, task];
-            return newState;
+                    const task = _.merge({taskText: action.payload}, {id: state.length}, {edit: false});
+                    console.log("TASK2", task);
+                    const newState = [...state, task];
+                    return newState;
 
             case EDIT_TASK:
-            const keepExisting = _.remove(state, task => {
-                return task.id == action.payload.id;
-            });
-            const addNew = _.merge({taskText: action.payload.text, id: action.payload.id, edit: false});
-            const addNewTask = _.merge(keepExisting, addNew);
-            const taskList = [...state, addNewTask];
-            return taskList;
+                    const keepExisting = _.remove(state, task => {
+                        return task.id == action.payload.id;
+                    });
+                    const addNew = _.merge({taskText: action.payload.text, id: action.payload.id, edit: false});
+                    const addNewTask = _.merge(keepExisting, addNew);
+                    const taskList = [...state, addNewTask];
+                    return taskList;
 
             case REMOVE_TASK:
-            const removeTask = _.remove(state, task => {
-                return task.id != action.payload
-            })
-            return removeTask;
+                    const removeTask = _.remove(state, task => {
+                        return task.id != action.payload
+                    })
+                    return removeTask;
 
-            default:
-            return state;
+                    default:
+                    return state;
     }
 }
