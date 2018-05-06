@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, Text, Button, TextInput } from "react-native";
+import { View, Text, Button, TextInput, TouchableOpacity } from "react-native";
 import {connect} from "react-redux";
 import {addTask, editTask} from "../actions";
 
@@ -53,24 +53,26 @@ class ToDo extends Component {
             <View style={{backgroundColor: '#333333', height: '100%'}}>
 
                     <TextInput
+                        multiline
+                        underlineColorAndroid = 'rgb(30,30,35)'
                         style = {styles.inputStyle}
-                        placeholder = "Enter Your Task"
+                        placeholder = "..."
+                        placeholderTextColor = 'white'
                         value={this.state.Task}
                         onChangeText={text => {
                             this.setState({Task: text})
                         }}
                     />
 
-                    <Button
-                        color={'#e6394d'}
-                        title="Done"
-                        width={50}
+                    <TouchableOpacity
+                        style = {styles.doneButton}
                         onPress = {() => {
                             console.log("ONPRESS", this.state.edit, this.state.text, this.state.id)
                             this.EditCheck(this.state.edit, this.state.Task, this.state.id);
                             this.props.navigation.goBack();
-                        }}
-                    />
+                        }}>
+                        <Text style = {styles.doneText}>Done</Text>
+                    </TouchableOpacity>
 
             </View>
         )
@@ -78,8 +80,28 @@ class ToDo extends Component {
 }
 
 const styles = {
-    inputStyle:{
-        height: 75
+    inputStyle: {
+        height: 150,
+        width: 380,
+        marginLeft: 15,
+        color: 'white'
+    },
+    doneButton: {
+        position: 'absolute',
+        zIndex: 5,
+        top: 510,
+        backgroundColor: '#e6394d',
+        width: 390,
+        height: 70,
+        borderRadius: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+        elevation: 8,
+        alignSelf: 'center'
+    },
+    doneText: {
+        fontSize: 20,
+        color: 'white'
     }
 }
 

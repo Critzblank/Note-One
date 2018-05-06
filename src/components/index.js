@@ -81,7 +81,7 @@ class Index extends Component {
         console.log("STATE",this.props)
         return(
             <View style={{backgroundColor: '#333333', height: '100%'}}>
-            <View style={{marginTop: 2}}>
+            <View style={{marginTop: 3}}>
                 {this.taskList()}
             </View>
                 <TouchableOpacity style={styles.addButton}
@@ -131,8 +131,9 @@ const styles = {
         backgroundColor: 'rgb(30,30,35)',
         borderColor: 'rgb(30,30,35)',
         borderRadius: 3,
-        borderWidth: 0.2,
-        margin: 2,
+        borderWidth: 1,
+        margin: 3,
+        marginLeft: 5,
         flexDirection: "row",
         justifyContent: "space-between",
         height: 80,
